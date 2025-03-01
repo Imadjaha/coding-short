@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="accordion">
+    <input type="checkbox" id="section1" />
+    <label for="section1">Click to Expand 👇</label>
+    <div class="content">Hidden content here! 👀</div>
+  </div>
+</div>
+<style>
+  .accordion .content {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  input:checked ~ .content {
+    max-height: 200px;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>

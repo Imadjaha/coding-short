@@ -32,6 +32,7 @@ body {
   }
   .input:focus {
     outline: none;
+    border-color: #4ecdc4;
   }
   .add {
     border: none;

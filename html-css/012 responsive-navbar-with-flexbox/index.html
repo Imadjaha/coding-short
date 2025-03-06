@@ -1,0 +1,36 @@
+<nav class="navbar">
+    <div class="logo">MySite</div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: #333;
+        color: white;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+    }
+
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            flex-direction: column;
+        }
+    }
+</style>

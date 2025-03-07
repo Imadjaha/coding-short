@@ -1,0 +1,31 @@
+<!-- Bootstrap CDN needed -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JS Bundle (with Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm h-100 transition-all hover:shadow-lg">
+                <img src="nature.jpg" class="card-img-top" width="200px" height="200px">
+                <div class="card-body">
+                    <h5 class="card-title">Card Title</h5>
+                    <p class="card-text">Description here.</p>
+                    <a href="#" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <!-- Repeat for more cards -->
+    </div>
+</div>
+
+
+<style>
+    .hover\:shadow-lg:hover {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+    }
+
+    .transition-all {
+        transition: all 0.3s;
+    }
+</style>

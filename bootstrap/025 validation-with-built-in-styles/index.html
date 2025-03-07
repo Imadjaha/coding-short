@@ -1,0 +1,23 @@
+<!-- Bootstrap CDN needed -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JS Bundle (with Popper.js) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<form class="container py-4 needs-validation" novalidate>
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" required>
+        <div class="invalid-feedback">Please enter a valid email.</div>
+    </div>
+    <button class="btn btn-success">Submit</button>
+</form>
+
+<script>
+    document.querySelector('.needs-validation').addEventListener('submit', function (e) {
+        if (!this.checkValidity()) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        this.classList.add('was-validated');
+    });
+</script>

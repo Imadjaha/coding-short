@@ -1,0 +1,23 @@
+<div class="container"><div class="morphing-shape"></div>
+</div>
+<style>
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.morphing-shape {
+  width: 200px;
+  height: 200px;
+  background: #ff6b6b;
+  animation: morph 6s infinite;
+
+}
+
+@keyframes morph {
+  0%, 100% { border-radius: 0; }
+  33% { border-radius: 50%; clip-path: polygon(0 0, 100% 0, 100% 100%); }
+  66% { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+}
+</style>

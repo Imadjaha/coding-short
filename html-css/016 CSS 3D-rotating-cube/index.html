@@ -1,0 +1,46 @@
+<div class="cube-container">
+    <div class="cube">
+      <div class="face front">FRONT</div>
+      <div class="face back">BACK</div>
+      <div class="face left">LEFT</div>
+      <div class="face right">RIGHT</div>
+    </div>
+  </div>
+  
+  <style>
+  .cube-container {
+    perspective: 1000px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+
+  }
+  
+  .cube {
+    transform-style: preserve-3d;
+    animation: rotate 8s infinite linear;
+    transform: rotateX(20deg) rotateY(30deg);
+  }
+  
+  @keyframes rotate {
+    0% { transform: rotateX(0) rotateY(0); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
+  }
+  
+  .face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(78, 205, 196, 0.8);
+    border: 2px solid white;
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+  }
+  
+  .front { transform: translateZ(100px); }
+  .back { transform: translateZ(-100px); }
+  .left { transform: translateX(-100px) rotateY(90deg); }
+  .right { transform: translateX(100px) rotateY(90deg); }
+  </style>

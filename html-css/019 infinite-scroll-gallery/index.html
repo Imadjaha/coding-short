@@ -1,0 +1,25 @@
+<div class="infinite-scroll">
+    <div class="scroller">
+      <!-- Duplicate images for seamless loop -->
+      <img src="nature.jpg" width="200px" height="200px">
+      <img src="nature.jpg" width="200px" height="200px">
+      <img src="nature.jpg" width="200px" height="200px">
+      <img src="nature.jpg" width="200px" height="200px">
+    </div>
+  </div>
+  
+  <style>
+  .infinite-scroll {
+    overflow: hidden;
+  }
+  
+  .scroller {
+    display: flex;
+    animation: scroll 10s infinite linear;
+  }
+  
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  </style>

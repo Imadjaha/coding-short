@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="form">  <input id="todo-input" placeholder="New task">
+  <button id="add-todo">Add</button>
+  </div>
+  
+  <ul id="todo-list"></ul>
+  </div>
+  
+  <style>
+    .container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+  }
+  .form{
+      display: flex;
+      flex-direction: row;
+  }
+  ul{
+      display: flex;
+      flex-direction: column;
+  }
+  li{
+      cursor: pointer;
+      list-style: none;
+      padding: 6px;
+      background-color: #eee;
+      margin: 5px;
+      border-radius: 6px;
+      
+  }
+  </style>
+  <script>
+    const addBtn = document.getElementById('add-todo');
+    const todoList = document.getElementById('todo-list');
+    
+    addBtn.addEventListener('click', () => {
+      const input = document.getElementById('todo-input');
+      const li = document.createElement('li');
+      li.textContent = input.value;
+      li.addEventListener('click', () => li.remove());
+      todoList.appendChild(li);
+      input.value = '';
+    });
+  </script>

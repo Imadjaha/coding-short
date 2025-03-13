@@ -1,0 +1,145 @@
+<canvas id="breakout"></canvas>
+
+<script>
+const canvas = document.getElementById("breakout");
+const ctx = canvas.getContext("2d");
+
+// Set canvas size
+canvas.width = 500;
+canvas.height = 400;
+
+// Ball properties
+let ball = { x: canvas.width / 2, y: canvas.height - 30, dx: 3, dy: -3, radius: 8 };
+
+// Paddle properties
+let paddle = { x: canvas.width / 2 - 50, width: 100, height: 10 };
+
+// Bricks properties
+const brickRowCount = 4;
+const brickColumnCount = 7;
+const brickWidth = 60;
+const brickHeight = 20;
+const brickPadding = 10;
+const brickOffsetTop = 50;
+const brickOffsetLeft = 35;
+
+let bricks = [];
+for (let c = 0; c < brickColumnCount; c++) {
+  bricks[c] = [];
+  for (let r = 0; r < brickRowCount; r++) {
+    bricks[c][r] = { x: 0, y: 0, status: 1 };
+  }
+}
+
+// Handle paddle movement with the mouse
+canvas.addEventListener("mousemove", (event) => {
+  let rect = canvas.getBoundingClientRect();
+  let mouseX = event.clientX - rect.left;
+  paddle.x = Math.min(Math.max(mouseX - paddle.width / 2, 0), canvas.width - paddle.width);
+});
+
+// Game loop update
+function update() {
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+
+  // Wall collisions
+  if (ball.x < ball.radius || ball.x > canvas.width - ball.radius) ball.dx *= -1;
+  if (ball.y < ball.radius) ball.dy *= -1;
+
+  // Paddle collision
+  if (
+    ball.y > canvas.height - paddle.height - ball.radius &&
+    ball.x > paddle.x &&
+    ball.x < paddle.x + paddle.width
+  ) {
+    ball.dy *= -1;
+  }
+
+  // Bricks collision
+  for (let c = 0; c < brickColumnCount; c++) {
+    for (let r = 0; r < brickRowCount; r++) {
+      let brick = bricks[c][r];
+      if (brick.status === 1) {
+        if (
+          ball.x > brick.x &&
+          ball.x < brick.x + brickWidth &&
+          ball.y > brick.y &&
+          ball.y < brick.y + brickHeight
+        ) {
+          ball.dy *= -1;
+          brick.status = 0; // Remove brick
+        }
+      }
+    }
+  }
+
+  // Ball falls below the paddle (Game over)
+  if (ball.y > canvas.height) {
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height - 30;
+    ball.dx = 3;
+    ball.dy = -3;
+  }
+
+  draw();
+  requestAnimationFrame(update);
+}
+
+// Draw function
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw bricks
+  for (let c = 0; c < brickColumnCount; c++) {
+    for (let r = 0; r < brickRowCount; r++) {
+      if (bricks[c][r].status === 1) {
+        let brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
+        let brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
+
+        ctx.fillStyle = "#f1c40f";
+        ctx.beginPath();
+        ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 5);
+        ctx.fill();
+      }
+    }
+  }
+
+  // Draw paddle
+  let gradient = ctx.createLinearGradient(paddle.x, canvas.height - 10, paddle.x + paddle.width, canvas.height);
+  gradient.addColorStop(0, "#4ecdc4");
+  gradient.addColorStop(1, "#3498db");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(paddle.x, canvas.height - 10, paddle.width, paddle.height);
+
+  // Draw ball with shadow
+  ctx.fillStyle = "#ff6b6b";
+  ctx.shadowColor = "#ff6b6b";
+  ctx.shadowBlur = 10;
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+}
+
+// Start game loop
+update();
+</script>
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #232526, #414345);
+    margin: 0;
+  }
+  canvas {
+    border: 5px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+</style>

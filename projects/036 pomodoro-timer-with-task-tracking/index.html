@@ -1,0 +1,119 @@
+<div class="container">
+    <div id="timer">25:00</div>
+    <input type="text" id="task" placeholder="Enter your task...">
+    <button id="start">Start</button>
+    <button id="reset">Reset</button>
+  </div>
+  
+  <style>
+    /* General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    /* Container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      gap: 15px;
+    }
+  
+    /* Timer Display */
+    #timer {
+      font-size: 48px;
+      font-weight: bold;
+      background: white;
+      padding: 15px 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      transition: color 0.3s ease-in-out;
+    }
+  
+    /* Task Input */
+    #task {
+      width: 250px;
+      padding: 10px;
+      border: 2px solid #ff4b6b;
+      border-radius: 20px;
+      text-align: center;
+      font-size: 16px;
+      outline: none;
+    }
+  
+    #task:focus {
+      border-color: #ff1e4b;
+      box-shadow: 0px 0px 8px rgba(255, 30, 75, 0.3);
+    }
+  
+    /* Buttons */
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: white;
+      font-weight: bold;
+    }
+  
+    #start {
+      background: #34c759;
+    }
+  
+    #start:hover {
+      background: #2faa4d;
+    }
+  
+    #reset {
+      background: #ff3b30;
+    }
+  
+    #reset:hover {
+      background: #d9251a;
+    }
+  </style>
+  
+  <script>
+    let timeLeft = 1500; // 25 minutes
+    let interval;
+    let isRunning = false;
+  
+    function updateTimerDisplay() {
+      const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const secs = (timeLeft % 60).toString().padStart(2, '0');
+      document.getElementById('timer').textContent = `${mins}:${secs}`;
+    }
+  
+    document.getElementById('start').addEventListener('click', () => {
+      if (!isRunning) {
+        isRunning = true;
+        interval = setInterval(() => {
+          timeLeft--;
+          updateTimerDisplay();
+          if (timeLeft <= 0) {
+            clearInterval(interval);
+            isRunning = false;
+            alert("Time's up! Take a break!");
+          }
+        }, 1000);
+      }
+    });
+  
+    document.getElementById('reset').addEventListener('click', () => {
+      clearInterval(interval);
+      timeLeft = 1500;
+      updateTimerDisplay();
+      isRunning = false;
+    });
+  
+    updateTimerDisplay();
+  </script>
+  

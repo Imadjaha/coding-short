@@ -1,0 +1,93 @@
+<div class="container">
+    <h2>Markdown Editor</h2>
+    <div class="editor-preview">
+      <textarea id="editor" placeholder="Write markdown..."></textarea>
+      <div id="preview"></div>
+    </div>
+  </div>
+  
+  <!-- Include Marked.js & Highlight.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js/lib/languages/javascript.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js/styles/github-dark.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      gap: 15px;
+      padding: 20px;
+    }
+  
+    h2 {
+      color: white;
+    }
+  
+    .editor-preview {
+      display: flex;
+      gap: 20px;
+      width: 80%;
+      height: 60vh;
+    }
+  
+    textarea {
+      width: 50%;
+      height: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      resize: none;
+      background: white;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    #preview {
+      width: 50%;
+      height: 100%;
+      padding: 15px;
+      overflow-y: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+  
+    pre {
+      background: #282c34;
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+      overflow-x: auto;
+    }
+  
+    code {
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+  
+  <script>
+    // Enable syntax highlighting
+    marked.setOptions({
+      highlight: function(code, lang) {
+        return hljs.highlightAuto(code).value;
+      }
+    });
+  
+    document.getElementById('editor').addEventListener('input', (e) => {
+      document.getElementById('preview').innerHTML = marked.parse(e.target.value);
+    });
+  </script>
+  

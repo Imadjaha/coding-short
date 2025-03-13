@@ -1,0 +1,144 @@
+<div id="game-container">
+    <div class="grid">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
+    </div>
+    <div id="game-message"></div>
+    <button id="restart">Restart</button>
+  </div>
+  
+  <style>
+    /* Game container */
+    #game-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+  
+    /* Grid styles */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      justify-content: center;
+      margin: auto;
+    }
+  
+    .cell {
+      width: 100px;
+      height: 100px;
+      background: #ecf0f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: #2c3e50;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+  
+    .cell:hover {
+      background: #bdc3c7;
+    }
+  
+    #game-message {
+      font-size: 1.5em;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+  
+    #restart {
+      display: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    #restart:hover {
+      background: #2980b9;
+    }
+  </style>
+  
+  <script>
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let gameOver = false;
+  
+    // Winning combinations
+    const winPatterns = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+      [0, 4, 8], [2, 4, 6] // Diagonals
+    ];
+  
+    function checkWinner() {
+      for (let pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          return board[a]; // Return "X" or "O"
+        }
+      }
+      return board.includes("") ? null : "Draw"; // Check for a draw
+    }
+  
+    function handleClick(event) {
+      if (gameOver) return;
+  
+      const cell = event.target;
+      const index = cell.getAttribute("data-index");
+  
+      if (!board[index]) {
+        board[index] = "X";
+        cell.textContent = "X";
+        cell.style.color = "#e74c3c";
+  
+        let result = checkWinner();
+        if (result) return endGame(result);
+  
+        // AI Move
+        setTimeout(() => {
+          let emptyCells = board.map((val, i) => (val === "" ? i : null)).filter(i => i !== null);
+          if (emptyCells.length) {
+            let aiMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            board[aiMove] = "O";
+            document.querySelector(`[data-index="${aiMove}"]`).textContent = "O";
+            document.querySelector(`[data-index="${aiMove}"]`).style.color = "#3498db";
+            
+            result = checkWinner();
+            if (result) return endGame(result);
+          }
+        }, 500);
+      }
+    }
+  
+    function endGame(result) {
+      gameOver = true;
+      document.getElementById("game-message").textContent = 
+        result === "Draw" ? "It's a Draw!" : `${result} Wins! 🎉`;
+      document.getElementById("restart").style.display = "block";
+    }
+  
+    function restartGame() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      gameOver = false;
+      document.getElementById("game-message").textContent = "";
+      document.getElementById("restart").style.display = "none";
+      document.querySelectorAll(".cell").forEach(cell => (cell.textContent = ""));
+    }
+  
+    document.querySelectorAll(".cell").forEach(cell => cell.addEventListener("click", handleClick));
+    document.getElementById("restart").addEventListener("click", restartGame);
+  </script>
+  

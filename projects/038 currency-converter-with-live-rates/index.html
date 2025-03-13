@@ -1,0 +1,120 @@
+<div class="container">
+    <h2>Currency Converter</h2>
+    <input type="number" id="amount" value="1" min="0" step="0.01">
+    <div class="selectors">
+      <select id="from"></select>
+      <span>➡</span>
+      <select id="to"></select>
+    </div>
+    <button id="convert">Convert</button>
+    <div id="result">Converted Amount: 0</div>
+  </div>
+  
+  <!-- Styling -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      gap: 15px;
+      padding: 20px;
+    }
+  
+    h2 {
+      color: white;
+    }
+  
+    input, select, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #fff;
+      text-align: center;
+    }
+  
+    .selectors {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    select {
+      cursor: pointer;
+      background: white;
+    }
+  
+    button {
+      background: #34c759;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+  
+    button:hover {
+      background: #2faa4d;
+    }
+  
+    #result {
+      font-size: 20px;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+  
+  <!-- Script -->
+  <script>
+    const fromCurrency = document.getElementById('from');
+    const toCurrency = document.getElementById('to');
+    const amountInput = document.getElementById('amount');
+    const resultDiv = document.getElementById('result');
+  
+    // Fetch Available Currencies and Populate Select Options
+    async function loadCurrencies() {
+      const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+      const data = await res.json();
+      const currencies = Object.keys(data.rates);
+  
+      currencies.forEach(currency => {
+        fromCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
+        toCurrency.innerHTML += `<option value="${currency}">${currency}</option>`;
+      });
+  
+      fromCurrency.value = 'USD';
+      toCurrency.value = 'EUR';
+    }
+  
+    // Convert Currency
+    async function convertCurrency() {
+      const amount = parseFloat(amountInput.value);
+      if (!amount || amount <= 0) {
+        resultDiv.textContent = 'Enter a valid amount!';
+        return;
+      }
+  
+      const from = fromCurrency.value;
+      const to = toCurrency.value;
+      
+      const res = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+      const data = await res.json();
+      
+      const rate = data.rates[to];
+      const convertedAmount = (amount * rate).toFixed(2);
+      
+      resultDiv.textContent = `${amount} ${from} = ${convertedAmount} ${to}`;
+    }
+  
+    // Event Listeners
+    document.getElementById('convert').addEventListener('click', convertCurrency);
+    document.addEventListener('DOMContentLoaded', loadCurrencies);
+  </script>
+  

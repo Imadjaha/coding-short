@@ -1,0 +1,118 @@
+<div class="container">
+    <h2>Expense Tracker</h2>
+    <input type="number" id="amount" placeholder="Amount">
+    <input type="text" id="category" placeholder="Category">
+    <button id="add">Add Expense</button>
+    <canvas id="chart"></canvas>
+  </div>
+  
+  <!-- Include Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <style>
+    /* General Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    /* Container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      gap: 15px;
+      padding: 20px;
+    }
+  
+    h2 {
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  
+    /* Input Fields */
+    input {
+      width: 250px;
+      padding: 10px;
+      border: 2px solid #ff4b6b;
+      border-radius: 20px;
+      text-align: center;
+      font-size: 16px;
+      outline: none;
+    }
+  
+    input:focus {
+      border-color: #ff1e4b;
+      box-shadow: 0px 0px 8px rgba(255, 30, 75, 0.3);
+    }
+  
+    /* Add Button */
+    button {
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      background: #34c759;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+  
+    button:hover {
+      background: #2faa4d;
+    }
+  
+    /* Chart */
+    canvas {
+      max-width: 400px;
+      max-height: 400px;
+    }
+  </style>
+  
+  <script>
+    // Chart Initialization
+    const ctx = document.getElementById('chart').getContext('2d');
+    const expenseChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: [],
+        datasets: [{
+          data: [],
+          backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0', '#9966ff'],
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
+    });
+  
+    // Add Expense Button Click Event
+    document.getElementById('add').addEventListener('click', () => {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const category = document.getElementById('category').value.trim();
+  
+      // Validate Input
+      if (!amount || amount <= 0 || category === '') {
+        alert('Please enter a valid amount and category!');
+        return;
+      }
+  
+      // Add Data to Chart
+      expenseChart.data.labels.push(category);
+      expenseChart.data.datasets[0].data.push(amount);
+      expenseChart.update();
+  
+      // Clear Input Fields
+      document.getElementById('amount').value = '';
+      document.getElementById('category').value = '';
+    });
+  </script>
+  

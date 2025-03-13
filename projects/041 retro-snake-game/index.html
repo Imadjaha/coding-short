@@ -1,0 +1,93 @@
+<canvas id="gameCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// Set canvas size
+canvas.width = 400;
+canvas.height = 400;
+
+// Snake properties
+let snake = [{ x: 10, y: 10 }];
+let direction = { x: 1, y: 0 }; // Initial movement direction
+let food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) };
+
+// Game loop
+function update() {
+  // Move snake
+  const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+  snake.unshift(head);
+  if (head.x === food.x && head.y === food.y) {
+    food = { x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20) }; // New food
+  } else {
+    snake.pop();
+  }
+}
+
+function draw() {
+  // Clear canvas
+  ctx.fillStyle = "#111";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  // Draw grid
+  ctx.strokeStyle = "#222";
+  for (let i = 0; i < canvas.width; i += 20) {
+    ctx.beginPath();
+    ctx.moveTo(i, 0);
+    ctx.lineTo(i, canvas.height);
+    ctx.moveTo(0, i);
+    ctx.lineTo(canvas.width, i);
+    ctx.stroke();
+  }
+
+  // Draw snake with rounded edges
+  snake.forEach((segment, index) => {
+    ctx.fillStyle = index === 0 ? "#00e676" : "#4ecdc4";
+    ctx.beginPath();
+    ctx.roundRect(segment.x * 20 + 1, segment.y * 20 + 1, 18, 18, 5);
+    ctx.fill();
+  });
+
+  // Draw food with shadow
+  ctx.fillStyle = "#ff6b6b";
+  ctx.shadowColor = "#ff6b6b";
+  ctx.shadowBlur = 10;
+  ctx.beginPath();
+  ctx.arc(food.x * 20 + 10, food.y * 20 + 10, 9, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0; // Reset shadow
+}
+
+// Keyboard controls
+window.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowUp" && direction.y === 0) direction = { x: 0, y: -1 };
+  if (e.key === "ArrowDown" && direction.y === 0) direction = { x: 0, y: 1 };
+  if (e.key === "ArrowLeft" && direction.x === 0) direction = { x: -1, y: 0 };
+  if (e.key === "ArrowRight" && direction.x === 0) direction = { x: 1, y: 0 };
+});
+
+// Run game loop
+function gameLoop() {
+  update();
+  draw();
+  setTimeout(gameLoop, 150);
+}
+gameLoop();
+</script>
+
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #232526, #414345);
+    margin: 0;
+  }
+  canvas {
+    border: 5px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  }
+</style>

@@ -1,0 +1,143 @@
+<div class="puzzle-grid"></div>
+<div id="message"></div>
+<button id="restart">Restart</button>
+
+<style>
+  /* Puzzle Container */
+  .puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+    width: 400px;
+    height: 400px;
+    margin: 20px auto;
+    background: #2c3e50;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  /* Tile Styles */
+  .tile {
+    background: #4ecdc4;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.2s ease-in-out;
+  }
+
+  .empty {
+    background: transparent;
+    visibility: hidden;
+  }
+
+  #message {
+    text-align: center;
+    font-size: 20px;
+    margin: 10px;
+    font-weight: bold;
+  }
+
+  #restart {
+    display: block;
+    margin: auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #restart:hover {
+    background: #2980b9;
+  }
+</style>
+
+<script>
+  const grid = document.querySelector(".puzzle-grid");
+  let tiles = [...Array(15).keys()].map(n => n + 1).concat(null); // Numbers 1-15 + empty space
+  let gameOver = false;
+
+  // Shuffle tiles using Fisher-Yates shuffle
+  function shuffleTiles() {
+    do {
+      for (let i = tiles.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+      }
+    } while (!isSolvable(tiles));
+  }
+
+  // Check if puzzle is solvable
+  function isSolvable(arr) {
+    let inversions = 0;
+    let gridPos = arr.indexOf(null) / 4 | 0;
+    let flat = arr.filter(n => n !== null);
+
+    for (let i = 0; i < flat.length; i++) {
+      for (let j = i + 1; j < flat.length; j++) {
+        if (flat[i] > flat[j]) inversions++;
+      }
+    }
+
+    return (inversions + gridPos) % 2 === 0;
+  }
+
+  // Render tiles
+  function renderTiles() {
+    grid.innerHTML = "";
+    tiles.forEach((num, index) => {
+      const tile = document.createElement("div");
+      tile.classList.add("tile");
+      if (num === null) tile.classList.add("empty");
+      else tile.textContent = num;
+      tile.dataset.index = index;
+      grid.appendChild(tile);
+    });
+
+    document.querySelectorAll(".tile").forEach(tile => {
+      tile.addEventListener("click", () => moveTile(tile.dataset.index));
+    });
+  }
+
+  // Move tile if adjacent to empty space
+  function moveTile(index) {
+    if (gameOver) return;
+
+    index = parseInt(index);
+    const emptyIndex = tiles.indexOf(null);
+    const neighbors = [emptyIndex - 1, emptyIndex + 1, emptyIndex - 4, emptyIndex + 4];
+
+    if (neighbors.includes(index)) {
+      [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+      renderTiles();
+      checkWin();
+    }
+  }
+
+  // Check if player has won
+  function checkWin() {
+    if (tiles.slice(0, 15).every((val, i) => val === i + 1)) {
+      document.getElementById("message").textContent = "You Win! 🎉";
+      gameOver = true;
+    }
+  }
+
+  // Restart Game
+  document.getElementById("restart").addEventListener("click", () => {
+    shuffleTiles();
+    gameOver = false;
+    document.getElementById("message").textContent = "";
+    renderTiles();
+  });
+
+  // Initialize Game
+  shuffleTiles();
+  renderTiles();
+</script>

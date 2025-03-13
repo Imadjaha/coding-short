@@ -1,0 +1,29 @@
+<div class="container">
+    <button id="theme-toggle">🌓 Toggle Theme</button>
+    <div>Hi Friends, How are you</div>
+  </div>
+  <style>
+    .container{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+      gap: 1rem;
+    }
+    body {
+      transition: background 0.3s;
+    }
+  
+    .dark-mode {
+      background: #111;
+      color: white;
+    }
+  </style>
+  
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>

@@ -1,0 +1,35 @@
+<div id="particles"></div>
+
+<style>
+  body { margin: 0; background: #000; }
+  .particle {
+    width: 4px;
+    height: 4px;
+    background: #4ecdc4;
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.3s;
+  }
+</style>
+
+<script>
+  const particles = [];
+  for (let i = 0; i < 100; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    document.body.appendChild(p);
+    particles.push({ el: p, x: 0, y: 0 });
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    particles.forEach((p, i) => {
+      setTimeout(() => {
+        p.x += (e.clientX - p.x) * 0.1;
+        p.y += (e.clientY - p.y) * 0.1;
+        p.el.style.transform = `translate(${p.x}px, ${p.y}px)`;
+        p.el.style.opacity = Math.random();
+      }, i * 10);
+    });
+  });
+</script>

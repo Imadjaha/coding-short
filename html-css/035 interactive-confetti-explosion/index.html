@@ -1,0 +1,36 @@
+<div class="container"><button id="confetti-btn">🎉 CELEBRATE</button>
+</div>
+<style>
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+</style>
+<script>
+  document.getElementById('confetti-btn').addEventListener('click', () => {
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.style = `
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        background: hsl(${Math.random() * 360}, 100%, 50%);
+        left: ${Math.random() * 100}vw;
+        top: -10px;
+        animation: confettiFall ${1 + Math.random() * 3}s linear;
+      `;
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+    }
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes confettiFall {
+      to { transform: translateY(100vh) rotate(360deg); }
+    }
+  `;
+  document.head.appendChild(style);
+</script>

@@ -1,0 +1,29 @@
+<canvas id="matrix"></canvas>
+
+<style>
+  body { margin: 0; background: #000; }
+  canvas { display: block; }
+</style>
+
+<script>
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+  const drops = Array(Math.floor(canvas.width / 10)).fill(0);
+
+  function draw() {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#0F0';
+    
+    drops.forEach((drop, i) => {
+      const char = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillText(char, i * 10, drop);
+      drops[i] = (drop > canvas.height || Math.random() > 0.95) ? 0 : drop + 10;
+    });
+  }
+  setInterval(draw, 50);
+</script>

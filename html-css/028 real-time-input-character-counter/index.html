@@ -1,0 +1,21 @@
+<div class="container">
+    <textarea id="text-input"></textarea>
+    <p>Characters: <span id="counter">0</span></p>
+    </div>
+    <style>
+      .container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+    </style>
+    <script>
+      const textInput = document.getElementById('text-input');
+      const counter = document.getElementById('counter');
+      
+      textInput.addEventListener('input', () => {
+        counter.textContent = textInput.value.length;
+      });
+    </script>

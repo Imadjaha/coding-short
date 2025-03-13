@@ -1,0 +1,102 @@
+<div class="container">
+    <input id="search" placeholder="Search for fruits...">
+    <ul id="list">
+      <li>Apple</li>
+      <li>Banana</li>
+      <li>Cherry</li>
+      <li>Dragonfruit</li>
+      <li>Fig</li>
+      <li>Guava</li>
+    </ul>
+  </div>
+  
+  <style>
+    /* General Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+    /* Centering the container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+  
+    /* Search Box */
+    #search {
+      width: 300px;
+      padding: 12px;
+      border: 2px solid #ff6f61;
+      border-radius: 25px;
+      outline: none;
+      font-size: 16px;
+      transition: 0.3s;
+      text-align: center;
+    }
+  
+    #search:focus {
+      border-color: #ff3d00;
+      box-shadow: 0px 0px 10px rgba(255, 61, 0, 0.3);
+    }
+  
+    /* List Styles */
+    #list {
+      list-style: none;
+      width: 300px;
+      margin-top: 15px;
+      padding: 0;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+  
+    #list li {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      transition: 0.3s;
+    }
+  
+    #list li:last-child {
+      border-bottom: none;
+    }
+  
+    #list li:hover {
+      background: #ff6f61;
+      color: white;
+      cursor: pointer;
+    }
+  
+    /* Smooth Transition for Filter */
+    #list li {
+      transition: all 0.3s ease-in-out;
+    }
+  </style>
+  
+  <script>
+    document.getElementById('search').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      document.querySelectorAll('#list li').forEach(item => {
+        if (item.textContent.toLowerCase().includes(term)) {
+          item.style.display = "block";
+          item.style.opacity = "1";
+          item.style.transform = "scale(1)";
+        } else {
+          item.style.display = "none";
+          item.style.opacity = "0";
+          item.style.transform = "scale(0.9)";
+        }
+      });
+    });
+  </script>
+  

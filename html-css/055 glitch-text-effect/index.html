@@ -1,0 +1,31 @@
+<h1 class="glitch">GLITCH</h1>
+
+<style>
+.glitch {
+  color: white;
+  font-size: 4em;
+  position: relative;
+}
+.glitch::before, .glitch::after {
+  content: 'GLITCH';
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+.glitch::before {
+  color: red;
+  left: 2px;
+  animation: glitch 0.3s infinite;
+}
+.glitch::after {
+  color: blue;
+  left: -2px;
+  animation: glitch 0.3s infinite reverse;
+}
+@keyframes glitch {
+  0% { top: -1px; }
+  50% { top: 1px; }
+  100% { top: -1px; }
+}
+</style>

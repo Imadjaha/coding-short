@@ -1,0 +1,11 @@
+<input id="nums" placeholder="1,2,3">
+<button onclick="sum()">Sum</button>
+<p id="result"></p>
+
+<script>
+function sum() {
+  const val = document.getElementById('nums').value;
+  const total = val.split(',').reduce((a,b)=>a+ +b, 0);
+  document.getElementById('result').textContent = `Total: ${total}`;
+}
+</script>

@@ -1,0 +1,13 @@
+<p id="timer"></p>
+<script>
+let time = 10;
+const el = document.getElementById('timer');
+
+const countdown = setInterval(() => {
+  el.textContent = `⏳ ${time--} seconds`;
+  if (time < 0) {
+    clearInterval(countdown);
+    el.textContent = '🟢 Done!';
+  }
+}, 1000);
+</script>

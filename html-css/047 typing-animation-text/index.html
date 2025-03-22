@@ -1,0 +1,30 @@
+<div class="container"><p id="type"></p>
+</div>
+<script>
+const text = "Typing effect with JavaScript!";
+let i = 0;
+const el = document.getElementById('type');
+
+function type() {
+  if (i < text.length) {
+    el.textContent += text.charAt(i);
+    i++;
+    setTimeout(type, 100);
+  }
+}
+type();
+</script>
+<style>
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  #type{
+    font-size: 24px;
+    font-weight: bold;
+    color: #4ecdc4;
+  }
+</style>
+

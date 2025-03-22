@@ -1,0 +1,29 @@
+<div class="magnet">Hover Me</div>
+
+<style>
+.magnet {
+  width: 150px;
+  height: 50px;
+  background: #333;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  position: relative;
+  transition: transform 0.1s;
+}
+</style>
+
+<script>
+const btn = document.querySelector('.magnet');
+btn.addEventListener('mousemove', e => {
+  const rect = btn.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  btn.style.transform = `translate(${x/5}px, ${y/5}px)`;
+});
+btn.addEventListener('mouseleave', () => {
+  btn.style.transform = `translate(0, 0)`;
+});
+</script>

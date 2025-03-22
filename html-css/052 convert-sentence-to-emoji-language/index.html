@@ -1,0 +1,14 @@
+<input id="txt" placeholder="I love pizza 🍕">
+<button onclick="emojify()">➡️</button>
+<p id="out"></p>
+
+<script>
+function emojify() {
+  const map = { love: '❤️', pizza: '🍕', cat: '🐱', happy: '😊' };
+  const input = document.getElementById('txt').value;
+  const output = input.split(' ')
+    .map(w => map[w] || w)
+    .join(' ');
+  document.getElementById('out').textContent = output;
+}
+</script>

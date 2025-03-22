@@ -1,0 +1,20 @@
+<div class="mirror"></div>
+
+<style>
+.mirror {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+  pointer-events: none;
+}
+</style>
+
+<script>
+const m = document.querySelector('.mirror');
+document.addEventListener('mousemove', e => {
+  m.style.left = `${window.innerWidth - e.clientX}px`;
+  m.style.top = `${e.clientY}px`;
+});
+</script>

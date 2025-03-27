@@ -1,0 +1,30 @@
+<div class="sky"></div>
+
+<style>
+.sky {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(#111, #000);
+  overflow: hidden;
+}
+
+.sky::before {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  box-shadow:
+    50px 100px #fff,
+    200px 150px #fff,
+    350px 90px #fff,
+    120px 300px #fff,
+    600px 200px #fff,
+    800px 80px #fff;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; }
+  100% { opacity: 1; }
+}
+</style>

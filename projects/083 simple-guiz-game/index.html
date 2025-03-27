@@ -1,0 +1,11 @@
+<p>2 + 2 = ?</p>
+<input id="ans"><button onclick="check()">Submit</button>
+<p id="msg"></p>
+
+<script>
+function check() {
+  const val = document.getElementById("ans").value;
+  document.getElementById("msg").textContent =
+    val == 4 ? "✅ Correct!" : "❌ Nope!";
+}
+</script>

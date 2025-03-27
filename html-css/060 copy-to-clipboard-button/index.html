@@ -1,0 +1,10 @@
+<input id="txt" value="Copy me!">
+<button onclick="copy()">📋</button>
+
+<script>
+function copy() {
+  navigator.clipboard.writeText(
+    document.getElementById('txt').value
+  );
+}
+</script>

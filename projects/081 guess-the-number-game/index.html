@@ -1,0 +1,12 @@
+<input id="guess" placeholder="1-10">
+<button onclick="check()">Guess</button>
+<p id="msg"></p>
+
+<script>
+const num = Math.ceil(Math.random() * 10);
+function check() {
+  const g = +document.getElementById("guess").value;
+  document.getElementById("msg").textContent =
+    g === num ? "🎉 Correct!" : "❌ Try Again";
+}
+</script>

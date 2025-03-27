@@ -1,0 +1,23 @@
+<button class="glass-btn">Zoom Me</button>
+
+<style>
+.glass-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(5px);
+  padding: 12px 24px;
+  font-size: 1.2em;
+  color: white;
+  transition: transform 0.3s ease;
+}
+.glass-btn:hover {
+  transform: scale(1.1);
+}
+body {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -1,0 +1,33 @@
+<div class="bubbles">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  
+  <style>
+  body {
+    background: #111;
+    overflow: hidden;
+    margin: 0;
+  }
+  .bubbles span {
+    position: absolute;
+    bottom: -50px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    animation: rise 10s infinite ease-in;
+    left: calc(20% * var(--i));
+  }
+  .bubbles span:nth-child(1) { --i: 1; }
+  .bubbles span:nth-child(2) { --i: 2; }
+  .bubbles span:nth-child(3) { --i: 3; }
+  .bubbles span:nth-child(4) { --i: 4; }
+  .bubbles span:nth-child(5) { --i: 5; }
+  
+  @keyframes rise {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+  }
+  </style>
+  

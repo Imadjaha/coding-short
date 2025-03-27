@@ -1,0 +1,19 @@
+<div class="float-card">Hover me</div>
+
+<style>
+body {
+  display: flex; justify-content: center; align-items: center;
+  height: 100vh; background: #f0f0f0;
+}
+.float-card {
+  background: white;
+  padding: 2em 4em;
+  border-radius: 20px;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.float-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+</style>

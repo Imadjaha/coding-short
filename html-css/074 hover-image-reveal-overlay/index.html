@@ -1,0 +1,33 @@
+<div class="img-wrap">
+    <img src="https://picsum.photos/300" />
+    <div class="overlay">View</div>
+  </div>
+  
+  <style>
+  .img-wrap {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+  .img-wrap img {
+    display: block;
+    width: 100%;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    color: white;
+    font-size: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+  }
+  .img-wrap:hover .overlay {
+    opacity: 1;
+  }
+  </style>
+  

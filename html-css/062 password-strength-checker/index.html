@@ -1,0 +1,14 @@
+<input id="pass" type="password" placeholder="Password">
+<p id="strength"></p>
+
+<script>
+    document.getElementById("pass").addEventListener("input", e => {
+        const val = e.target.value;
+        let msg = "Weak";
+        if (val.length > 8 && /[0-9]/.test(val) && /[A-Z]/.test(val)) msg = "Strong";
+        else if (val.length > 5) msg = "Medium";
+        document.getElementById("strength").style.color = msg === "Strong" ? "green" : msg === "Medium" ? "brown" : "red";
+
+        document.getElementById("strength").textContent = msg;
+    });
+</script>

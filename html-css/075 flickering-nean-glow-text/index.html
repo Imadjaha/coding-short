@@ -1,0 +1,26 @@
+<h1 class="neon">NEON</h1>
+
+<style>
+.neon {
+  color: #fff;
+  font-size: 4em;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff;
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.2;
+  }
+}
+body {
+  background: #000;
+}
+</style>

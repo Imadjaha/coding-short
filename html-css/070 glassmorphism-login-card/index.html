@@ -1,0 +1,36 @@
+<div class="glass">
+    <h2>Login</h2>
+    <input placeholder="Email">
+    <input placeholder="Password" type="password">
+    <button>Login</button>
+  </div>
+  
+  <style>
+  body {
+    background: url('https://picsum.photos/seed/bg/900') no-repeat center/cover;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh; margin: 0;
+  }
+  .glass {
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 2em;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 280px;
+  }
+  .glass input, .glass button {
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+  }
+  .glass button {
+    background: #fff;
+    color: #333;
+    font-weight: bold;
+  }
+  </style>
+  

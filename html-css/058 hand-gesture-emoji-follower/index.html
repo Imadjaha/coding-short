@@ -1,0 +1,17 @@
+<div id="emoji">🖖</div>
+
+<style>
+#emoji {
+  position: fixed;
+  pointer-events: none;
+  font-size: 2em;
+}
+</style>
+
+<script>
+document.addEventListener('mousemove', e => {
+  const em = document.getElementById('emoji');
+  em.style.left = `${e.clientX}px`;
+  em.style.top = `${e.clientY}px`;
+});
+</script>

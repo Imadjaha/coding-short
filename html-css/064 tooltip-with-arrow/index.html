@@ -1,0 +1,44 @@
+<div class="container"><button class="tooltip">Hover
+    <span class="tip">I'm a tooltip!</span>
+  </button>
+</div>
+  <style>
+  .tooltip {
+    position: relative;
+    cursor: pointer;
+  }
+  .tip {
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: 0.3s;
+    pointer-events: none;
+  }
+  .tooltip:hover .tip {
+    opacity: 1;
+  }
+  .tip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  </style>
+  
